@@ -1,7 +1,10 @@
 #!/bin/sh
 
+xhost +local:docker 
+cd $(dirname $0)
 docker build . -t winamax
-docker run -e PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native \
+docker run --name winamax --rm \
+		   -e PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native \
 		   -e DISPLAY=$DISPLAY \
 		   -v $PWD/winamax-data:/root \
 		   -v $XDG_RUNTIME_DIR/pulse:/run/user/1000/pulse \
